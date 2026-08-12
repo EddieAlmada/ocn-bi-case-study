@@ -1,0 +1,201 @@
+version: 2
+
+sources:
+  - name: ocn_sources
+    description: '{{ doc("ocn_sources_overview") }}'
+    database: ocn_project
+    schema: sources
+    tables:
+      - name: db_dpd_history
+        description: '{{ doc("db_dpd_history") }}'
+        columns:
+          - name: business_date
+            description: '{{ doc("db_dpd_history__business_date") }}'
+          - name: contract_number
+            description: '{{ doc("db_dpd_history__contract_number") }}'
+          - name: vin
+            description: '{{ doc("db_dpd_history__vin") }}'
+          - name: dpd
+            description: '{{ doc("db_dpd_history__dpd") }}'
+          - name: last_payment_received_date
+            description: '{{ doc("db_dpd_history__last_payment_received_date") }}'
+
+      - name: db_stock_update_history
+        description: '{{ doc("db_stock_update_history") }}'
+        columns:
+          - name: contract
+            description: '{{ doc("db_stock_update_history__contract") }}'
+          - name: vin
+            description: '{{ doc("db_stock_update_history__vin") }}'
+          - name: history_id
+            description: '{{ doc("db_stock_update_history__history_id") }}'
+          - name: step
+            description: '{{ doc("db_stock_update_history__step") }}'
+          - name: time
+            description: '{{ doc("db_stock_update_history__time") }}'
+          - name: user_id
+            description: '{{ doc("db_stock_update_history__user_id") }}'
+          - name: description
+            description: '{{ doc("db_stock_update_history__description") }}'
+
+      - name: db_stock_vehicles_status_histories
+        description: '{{ doc("db_stock_vehicles_status_histories") }}'
+        columns:
+          - name: contract_number
+            description: '{{ doc("db_stock_vehicles_status_histories__contract_number") }}'
+          - name: vin
+            description: '{{ doc("db_stock_vehicles_status_histories__vin") }}'
+          - name: schema_version
+            description: '{{ doc("db_stock_vehicles_status_histories__schema_version") }}'
+          - name: stock_vehicle_status_histories_id
+            description: '{{ doc("db_stock_vehicles_status_histories__stock_vehicle_status_histories_id") }}'
+          - name: associate_id
+            description: '{{ doc("db_stock_vehicles_status_histories__associate_id") }}'
+          - name: canceled_at
+            description: '{{ doc("db_stock_vehicles_status_histories__canceled_at") }}'
+          - name: category
+            description: '{{ doc("db_stock_vehicles_status_histories__category") }}'
+          - name: commments
+            description: '{{ doc("db_stock_vehicles_status_histories__commments") }}'
+          - name: created_at
+            description: '{{ doc("db_stock_vehicles_status_histories__created_at") }}'
+          - name: date_in
+            description: '{{ doc("db_stock_vehicles_status_histories__date_in") }}'
+          - name: date_out
+            description: '{{ doc("db_stock_vehicles_status_histories__date_out") }}'
+          - name: is_canceled
+            description: '{{ doc("db_stock_vehicles_status_histories__is_canceled") }}'
+          - name: is_completed
+            description: '{{ doc("db_stock_vehicles_status_histories__is_completed") }}'
+          - name: sub_category
+            description: '{{ doc("db_stock_vehicles_status_histories__sub_category") }}'
+          - name: previous_category
+            description: '{{ doc("db_stock_vehicles_status_histories__previous_category") }}'
+          - name: previous_status
+            description: '{{ doc("db_stock_vehicles_status_histories__previous_status") }}'
+          - name: previous_step
+            description: '{{ doc("db_stock_vehicles_status_histories__previous_step") }}'
+          - name: previous_sub_category
+            description: '{{ doc("db_stock_vehicles_status_histories__previous_sub_category") }}'
+          - name: status
+            description: '{{ doc("db_stock_vehicles_status_histories__status") }}'
+          - name: step
+            description: '{{ doc("db_stock_vehicles_status_histories__step") }}'
+          - name: stockid
+            description: '{{ doc("db_stock_vehicles_status_histories__stockid") }}'
+          - name: userid
+            description: '{{ doc("db_stock_vehicles_status_histories__userid") }}'
+
+      - name: db_stock_vehicles
+        description: '{{ doc("db_stock_vehicles") }}'
+        columns:
+          - name: schema_version
+            description: '{{ doc("db_stock_vehicles__schema_version") }}'
+          - name: stock_vehicles_id
+            description: '{{ doc("db_stock_vehicles__stock_vehicles_id") }}'
+          - name: adendum_service_count
+            description: '{{ doc("db_stock_vehicles__adendum_service_count") }}'
+          - name: agency_payment_date
+            description: '{{ doc("db_stock_vehicles__agency_payment_date") }}'
+          - name: bill
+            description: '{{ doc("db_stock_vehicles__bill") }}'
+          - name: bill_amount
+            description: '{{ doc("db_stock_vehicles__bill_amount") }}'
+          - name: bill_date
+            description: '{{ doc("db_stock_vehicles__bill_date") }}'
+          - name: bill_number
+            description: '{{ doc("db_stock_vehicles__bill_number") }}'
+          - name: brand
+            description: '{{ doc("db_stock_vehicles__brand") }}'
+          - name: can_finish_process
+            description: '{{ doc("db_stock_vehicles__can_finish_process") }}'
+          - name: car_number
+            description: '{{ doc("db_stock_vehicles__car_number") }}'
+          - name: category
+            description: '{{ doc("db_stock_vehicles__category") }}'
+          - name: color
+            description: '{{ doc("db_stock_vehicles__color") }}'
+          - name: contract
+            description: '{{ doc("db_stock_vehicles__contract") }}'
+          - name: country
+            description: '{{ doc("db_stock_vehicles__country") }}'
+          - name: created_at
+            description: '{{ doc("db_stock_vehicles__created_at") }}'
+          - name: delivered_date
+            description: '{{ doc("db_stock_vehicles__delivered_date") }}'
+          - name: delivery_confirmation
+            description: '{{ doc("db_stock_vehicles__delivery_confirmation") }}'
+          - name: extension_car_number
+            description: '{{ doc("db_stock_vehicles__extension_car_number") }}'
+          - name: gps_installed
+            description: '{{ doc("db_stock_vehicles__gps_installed") }}'
+          - name: gps_number
+            description: '{{ doc("db_stock_vehicles__gps_number") }}'
+          - name: gps_serie
+            description: '{{ doc("db_stock_vehicles__gps_serie") }}'
+          - name: is_blocked
+            description: '{{ doc("db_stock_vehicles__is_blocked") }}'
+          - name: is_electric
+            description: '{{ doc("db_stock_vehicles__is_electric") }}'
+          - name: km
+            description: '{{ doc("db_stock_vehicles__km") }}'
+          - name: maintenance_history
+            description: '{{ doc("db_stock_vehicles__maintenance_history") }}'
+          - name: mi
+            description: '{{ doc("db_stock_vehicles__mi") }}'
+          - name: model
+            description: '{{ doc("db_stock_vehicles__model") }}'
+          - name: motor_number
+            description: '{{ doc("db_stock_vehicles__motor_number") }}'
+          - name: new_car
+            description: '{{ doc("db_stock_vehicles__new_car") }}'
+          - name: owner
+            description: '{{ doc("db_stock_vehicles__owner") }}'
+          - name: payment_count
+            description: '{{ doc("db_stock_vehicles__payment_count") }}'
+          - name: physical_status
+            description: '{{ doc("db_stock_vehicles__physical_status") }}'
+          - name: platform
+            description: '{{ doc("db_stock_vehicles__platform") }}'
+          - name: qr_code
+            description: '{{ doc("db_stock_vehicles__qr_code") }}'
+          - name: readmission_date
+            description: '{{ doc("db_stock_vehicles__readmission_date") }}'
+          - name: readmission_reason
+            description: '{{ doc("db_stock_vehicles__readmission_reason") }}'
+          - name: ready_to_deliver
+            description: '{{ doc("db_stock_vehicles__ready_to_deliver") }}'
+          - name: reception_date
+            description: '{{ doc("db_stock_vehicles__reception_date") }}'
+          - name: state
+            description: '{{ doc("db_stock_vehicles__state") }}'
+          - name: status
+            description: '{{ doc("db_stock_vehicles__status") }}'
+          - name: step
+            description: '{{ doc("db_stock_vehicles__step") }}'
+          - name: sub_category
+            description: '{{ doc("db_stock_vehicles__sub_category") }}'
+          - name: transferred_to
+            description: '{{ doc("db_stock_vehicles__transferred_to") }}'
+          - name: updated_at
+            description: '{{ doc("db_stock_vehicles__updated_at") }}'
+          - name: vehicle_docs_complete
+            description: '{{ doc("db_stock_vehicles__vehicle_docs_complete") }}'
+          - name: vehicle_physically_received
+            description: '{{ doc("db_stock_vehicles__vehicle_physically_received") }}'
+          - name: vehicle_state
+            description: '{{ doc("db_stock_vehicles__vehicle_state") }}'
+          - name: version
+            description: '{{ doc("db_stock_vehicles__version") }}'
+          - name: vin
+            description: '{{ doc("db_stock_vehicles__vin") }}'
+          - name: vin_number_validated
+            description: '{{ doc("db_stock_vehicles__vin_number_validated") }}'
+          - name: year
+            description: '{{ doc("db_stock_vehicles__year") }}'
+          - name: contract_number
+            description: '{{ doc("db_stock_vehicles__contract_number") }}'
+          - name: last_driver_index
+            description: '{{ doc("db_stock_vehicles__last_driver_index") }}'
+          - name: last_driver_id
+            description: '{{ doc("db_stock_vehicles__last_driver_id") }}'

@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: stg_db_dpd_history__ocn_sources
+    description: >
+      Daily history of days past due by vehicle and contract, used to
+      support collections and default risk analysis.
+
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - business_date
+              - contract_number
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "dpd >= 0"
+
+    columns:
+      - name: business_date
+        description: Date represented by the DPD snapshot.
+        data_tests:
+          - not_null
+
+      - name: contract_number
+        description: Contract associated with the DPD observation.
+        data_tests:
+          - not_null
+
+      - name: vin
+        description: Vehicle associated with the contract.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_stock_vehicles')
+                field: vin
+
+      - name: dpd
+        description: Number of days past due for the contract.
+        data_tests:
+          - not_null
+
+      - name: last_payment_received_date
+        description: Most recent payment received date associated with the contract.
+        data_tests:
+          - not_null

@@ -1,0 +1,72 @@
+version: 2
+
+models:
+  - name: stg_db_stock_vehicles_status_histories__ocn_sources
+    description: >
+      Historical record of vehicle status and category transitions.
+
+    data_tests:
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "date_out IS NULL OR date_out >= date_in"
+
+    columns:
+      - name: stock_vehicle_status_histories_id
+        description: Unique identifier for each vehicle status history record.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: vin
+        description: Vehicle identification number associated with the status change.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_stock_vehicles')
+                field: vin
+
+      - name: contract_number
+        description: Contract associated with the vehicle.
+        data_tests:
+          - not_null
+
+      - name: created_at
+        description: Timestamp when the status history record was created.
+        data_tests:
+          - not_null
+
+      - name: date_in
+        description: Date when the vehicle entered the recorded status.
+        data_tests:
+          - not_null
+
+      - name: status
+        description: Vehicle status after the transition.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - active
+                  - inactive
+
+      - name: previous_status
+        description: Vehicle status before the transition.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - active
+                  - inactive
+
+      - name: is_canceled
+        description: Indicates whether the status record was canceled.
+        data_tests:
+          - not_null
+
+      - name: is_completed
+        description: Indicates whether the status record was completed.
+        data_tests:
+          - not_null

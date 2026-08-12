@@ -1,0 +1,71 @@
+version: 2
+
+models:
+  - name: stg_db_stock_vehicles__ocn_sources
+    description: >
+      Master vehicle inventory containing the current state and main
+      attributes of each vehicle.
+
+    columns:
+      - name: stock_vehicles_id
+        description: Unique identifier for the vehicle record.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: vin
+        description: Vehicle identification number used as the main business key.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: contract_number
+        description: Contract associated with the vehicle.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: created_at
+        description: Timestamp when the vehicle record was created.
+        data_tests:
+          - not_null
+
+      - name: updated_at
+        description: Timestamp when the vehicle record was last updated.
+        data_tests:
+          - not_null
+
+      - name: status
+        description: Current operational status of the vehicle.
+        data_tests:
+          - not_null
+
+      - name: physical_status
+        description: Current physical status of the vehicle.
+        data_tests:
+          - not_null
+
+      - name: vehicle_state
+        description: Current vehicle operational location or state.
+        data_tests:
+          - not_null
+
+      - name: brand
+        description: Vehicle manufacturer.
+        data_tests:
+          - not_null
+
+      - name: model
+        description: Vehicle model.
+        data_tests:
+          - not_null
+
+      - name: bill_amount
+        description: Invoice amount associated with the vehicle.
+        data_tests:
+          - not_null
+
+      - name: km
+        description: Recorded vehicle mileage.
+        data_tests:
+          - not_null
