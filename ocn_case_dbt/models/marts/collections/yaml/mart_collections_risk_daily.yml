@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: mart_collections_risk_daily
+    description: '{{ doc("mart_collections_risk_daily") }}'
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [business_date, contract_number]
+    columns:
+      - name: business_date
+        description: '{{ doc("db_dpd_history__business_date") }}'
+        data_tests: [not_null]
+      - name: contract_number
+        description: '{{ doc("db_dpd_history__contract_number") }}'
+        data_tests: [not_null]
+      - name: is_early_warning
+        description: '{{ doc("mart_collections_risk_daily__is_early_warning") }}'
+      - name: risk_reason
+        description: '{{ doc("mart_collections_risk_daily__risk_reason") }}'

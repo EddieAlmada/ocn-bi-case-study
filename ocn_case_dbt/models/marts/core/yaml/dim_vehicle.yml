@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: dim_vehicle
+    description: '{{ doc("dim_vehicle") }}'
+    columns:
+      - name: stock_vehicles_id
+        description: '{{ doc("db_stock_vehicles__stock_vehicles_id") }}'
+        data_tests: [not_null, unique]
+      - name: vin
+        description: '{{ doc("db_stock_vehicles__vin") }}'
+        data_tests: [not_null, unique]
+      - name: contract_number
+        description: '{{ doc("db_stock_vehicles__contract_number") }}'
+      - name: normalized_status
+        description: '{{ doc("dim_vehicle__normalized_status") }}'
+      - name: normalized_category
+        description: '{{ doc("dim_vehicle__normalized_category") }}'
+      - name: normalized_sub_category
+        description: '{{ doc("dim_vehicle__normalized_sub_category") }}'

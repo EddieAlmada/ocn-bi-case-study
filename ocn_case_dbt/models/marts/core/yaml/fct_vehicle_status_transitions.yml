@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: fct_vehicle_status_transitions
+    description: '{{ doc("fct_vehicle_status_transitions") }}'
+    columns:
+      - name: vehicle_status_transition_id
+        description: '{{ doc("int_vehicle_status_transitions__vehicle_status_transition_id") }}'
+        data_tests: [not_null, unique]
+      - name: stock_vehicle_status_histories_id
+        description: '{{ doc("db_stock_vehicles_status_histories__stock_vehicle_status_histories_id") }}'
+        data_tests:
+          - not_null:
+              config:
+                severity: warn
+      - name: vin
+        description: '{{ doc("db_stock_vehicles_status_histories__vin") }}'
+        data_tests: [not_null]
+      - name: transition_date
+        description: '{{ doc("fct_vehicle_status_transitions__transition_date") }}'
+      - name: status_transition
+        description: '{{ doc("fct_vehicle_status_transitions__status_transition") }}'
+      - name: category_transition
+        description: '{{ doc("fct_vehicle_status_transitions__category_transition") }}'
+      - name: is_open_transition
+        description: '{{ doc("fct_vehicle_status_transitions__is_open_transition") }}'
