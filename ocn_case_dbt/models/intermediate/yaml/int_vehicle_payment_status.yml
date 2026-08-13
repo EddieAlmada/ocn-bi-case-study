@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: int_vehicle_payment_status
+    description: '{{ doc("int_vehicle_payment_status") }}'
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - business_date
+              - contract_number
+    columns:
+      - name: business_date
+        description: '{{ doc("db_dpd_history__business_date") }}'
+        data_tests:
+          - not_null
+      - name: contract_number
+        description: '{{ doc("db_dpd_history__contract_number") }}'
+        data_tests:
+          - not_null
+      - name: is_past_due
+        description: '{{ doc("int_vehicle_payment_status__is_past_due") }}'
+      - name: is_over_7_days_past_due
+        description: '{{ doc("int_vehicle_payment_status__is_over_7_days_past_due") }}'
+      - name: dpd_bucket
+        description: '{{ doc("int_vehicle_payment_status__dpd_bucket") }}'
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - current
+                  - 1_7_days
+                  - 8_30_days
+                  - 30_plus_days
+                  - unknown

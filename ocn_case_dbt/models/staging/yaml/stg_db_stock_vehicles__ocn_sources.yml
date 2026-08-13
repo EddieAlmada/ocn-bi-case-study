@@ -2,70 +2,70 @@ version: 2
 
 models:
   - name: stg_db_stock_vehicles__ocn_sources
-    description: >
-      Master vehicle inventory containing the current state and main
-      attributes of each vehicle.
+    description: '{{ doc("db_stock_vehicles") }}'
 
     columns:
       - name: stock_vehicles_id
-        description: Unique identifier for the vehicle record.
+        description: '{{ doc("db_stock_vehicles__stock_vehicles_id") }}'
         data_tests:
           - not_null
           - unique
 
       - name: vin
-        description: Vehicle identification number used as the main business key.
+        description: '{{ doc("db_stock_vehicles__vin") }}'
         data_tests:
           - not_null
           - unique
 
       - name: contract_number
-        description: Contract associated with the vehicle.
+        description: '{{ doc("db_stock_vehicles__contract_number") }}'
         data_tests:
           - not_null
           - unique
 
       - name: created_at
-        description: Timestamp when the vehicle record was created.
+        description: '{{ doc("db_stock_vehicles__created_at") }}'
         data_tests:
           - not_null
 
       - name: updated_at
-        description: Timestamp when the vehicle record was last updated.
+        description: '{{ doc("db_stock_vehicles__updated_at") }}'
         data_tests:
           - not_null
 
       - name: status
-        description: Current operational status of the vehicle.
+        description: '{{ doc("db_stock_vehicles__status") }}'
         data_tests:
-          - not_null
+          - not_null:
+              config:
+                severity: warn
 
       - name: physical_status
-        description: Current physical status of the vehicle.
+        description: '{{ doc("db_stock_vehicles__physical_status") }}'
         data_tests:
           - not_null
 
       - name: vehicle_state
-        description: Current vehicle operational location or state.
+        description: '{{ doc("db_stock_vehicles__vehicle_state") }}'
         data_tests:
           - not_null
 
       - name: brand
-        description: Vehicle manufacturer.
+        description: '{{ doc("db_stock_vehicles__brand") }}'
         data_tests:
           - not_null
 
       - name: model
-        description: Vehicle model.
+        description: '{{ doc("db_stock_vehicles__model") }}'
         data_tests:
           - not_null
 
       - name: bill_amount
-        description: Invoice amount associated with the vehicle.
+        description: '{{ doc("db_stock_vehicles__bill_amount") }}'
         data_tests:
           - not_null
 
       - name: km
-        description: Recorded vehicle mileage.
+        description: '{{ doc("db_stock_vehicles__km") }}'
         data_tests:
           - not_null

@@ -7,11 +7,11 @@ with source as (
 renamed as (
 
     select
-        business_date,
+        try_cast(business_date as date) as business_date,
         contract_number,
         vin,
-        dpd,
-        last_payment_received_date
+        try_cast(dpd as integer) as dpd,
+        try_cast(last_payment_received_date as date) as last_payment_received_date
 
     from source
 

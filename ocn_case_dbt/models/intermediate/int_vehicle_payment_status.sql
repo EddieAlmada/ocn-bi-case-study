@@ -15,16 +15,19 @@ payment_status as (
         last_payment_received_date,
 
         case
-            when dpd = 0 then false
-            else true
+            when dpd is null then null
+            when dpd > 0 then true
+            else false
         end as is_past_due,
 
         case
+            when dpd is null then null
             when dpd > 7 then true
             else false
         end as is_over_7_days_past_due,
 
         case
+            when dpd is null then 'unknown'
             when dpd = 0 then 'current'
             when dpd between 1 and 7 then '1_7_days'
             when dpd between 8 and 30 then '8_30_days'

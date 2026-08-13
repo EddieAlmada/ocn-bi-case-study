@@ -8,6 +8,23 @@ with source as (
 valid_status_records as (
 
     select
+        {{ dbt_utils.generate_surrogate_key([
+            'stock_vehicle_status_histories_id',
+            'vin',
+            'contract_number',
+            'created_at',
+            'date_in',
+            'date_out',
+            'previous_status',
+            'status',
+            'previous_category',
+            'category',
+            'previous_sub_category',
+            'sub_category',
+            'previous_step',
+            'step',
+            'userid'
+        ]) }} as vehicle_status_transition_id,
         stock_vehicle_status_histories_id,
         vin,
         contract_number,
@@ -43,10 +60,32 @@ valid_status_records as (
 
 ),
 
+deduplicated_status_records as (
+
+    select *
+    from valid_status_records
+    qualify row_number() over (
+        partition by vehicle_status_transition_id
+        order by created_at desc, date_in desc
+    ) = 1
+
+),
+
 status_transitions as (
 
     select
         *,
+
+        regexp_replace(lower(trim(status)), '[^a-z0-9]+', '_') as normalized_status,
+        regexp_replace(lower(trim(previous_status)), '[^a-z0-9]+', '_') as normalized_previous_status,
+
+        case
+            when date_in is not null
+             and date_out is not null
+             and date_out < date_in
+            then true
+            else false
+        end as has_invalid_date_range,
 
         case
             when date_in is not null
@@ -67,7 +106,7 @@ status_transitions as (
             else false
         end as is_category_change
 
-    from valid_status_records
+    from deduplicated_status_records
 
 ),
 

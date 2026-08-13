@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: int_vehicle_events
+    description: '{{ doc("int_vehicle_events") }}'
+    columns:
+      - name: vehicle_event_id
+        description: '{{ doc("int_vehicle_events__vehicle_event_id") }}'
+        data_tests:
+          - not_null
+          - unique
+      - name: history_id
+        description: '{{ doc("db_stock_update_history__history_id") }}'
+        data_tests:
+          - not_null
+      - name: vin
+        description: '{{ doc("db_stock_update_history__vin") }}'
+        data_tests:
+          - not_null
+      - name: event_at
+        description: '{{ doc("int_vehicle_events__event_at") }}'
+      - name: event_type
+        description: '{{ doc("int_vehicle_events__event_type") }}'
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - vehicle_created
+                  - gps_installed
+                  - driver_assigned
+                  - vehicle_delivered
+                  - sent_to_stock
+                  - returned_to_stock
+                  - vehicle_ready
+                  - sent_to_workshop
+                  - sent_to_service
+                  - sent_to_legal
+                  - awaiting_insurance
+                  - sent_to_gestorias
+                  - vehicle_withdrawn
+                  - vehicle_sold
+                  - other
