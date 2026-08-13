@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: int_vehicle_lifecycle
+    description: '{{ doc("int_vehicle_lifecycle") }}'
+    columns:
+      - name: stock_vehicles_id
+        description: '{{ doc("db_stock_vehicles__stock_vehicles_id") }}'
+        data_tests:
+          - not_null
+          - unique
+      - name: vin
+        description: '{{ doc("db_stock_vehicles__vin") }}'
+        data_tests:
+          - not_null
+          - unique
+      - name: first_vehicle_created_at
+        description: '{{ doc("int_vehicle_lifecycle__first_vehicle_created_at") }}'
+      - name: first_gps_installed_at
+        description: '{{ doc("int_vehicle_lifecycle__first_gps_installed_at") }}'
+      - name: first_vehicle_ready_at
+        description: '{{ doc("int_vehicle_lifecycle__first_vehicle_ready_at") }}'
+      - name: first_driver_assigned_at
+        description: '{{ doc("int_vehicle_lifecycle__first_driver_assigned_at") }}'
+      - name: first_vehicle_delivered_at
+        description: '{{ doc("int_vehicle_lifecycle__first_vehicle_delivered_at") }}'
+      - name: first_workshop_at
+        description: '{{ doc("int_vehicle_lifecycle__first_workshop_at") }}'
+      - name: first_service_at
+        description: '{{ doc("int_vehicle_lifecycle__first_service_at") }}'
+      - name: first_returned_to_stock_at
+        description: '{{ doc("int_vehicle_lifecycle__first_returned_to_stock_at") }}'
+      - name: days_reception_to_ready
+        description: '{{ doc("int_vehicle_lifecycle__days_reception_to_ready") }}'
+      - name: days_reception_to_driver_assignment
+        description: '{{ doc("int_vehicle_lifecycle__days_reception_to_driver_assignment") }}'
+      - name: days_gps_to_driver_assignment
+        description: '{{ doc("int_vehicle_lifecycle__days_gps_to_driver_assignment") }}'

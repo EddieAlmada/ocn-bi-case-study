@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: mart_data_quality_daily
+    description: '{{ doc("mart_data_quality_daily") }}'
+    columns:
+      - name: data_quality_observation_id
+        description: '{{ doc("mart_data_quality_daily__data_quality_observation_id") }}'
+        data_tests: [not_null, unique]
+      - name: observation_date
+        description: '{{ doc("mart_data_quality_daily__observation_date") }}'
+        data_tests: [not_null]
+      - name: data_layer
+        description: '{{ doc("mart_data_quality_daily__data_layer") }}'
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [staging, intermediate, marts]
+      - name: severity
+        description: '{{ doc("mart_data_quality_daily__severity") }}'
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [warning, error]
+      - name: issue_type
+        description: '{{ doc("mart_data_quality_daily__issue_type") }}'
+        data_tests: [not_null]
+      - name: affected_rows
+        description: '{{ doc("mart_data_quality_daily__affected_rows") }}'
+        data_tests:
+          - dbt_utils.expression_is_true:
+              arguments:
+                expression: ">= 0"
+      - name: has_issue
+        description: '{{ doc("mart_data_quality_daily__has_issue") }}'

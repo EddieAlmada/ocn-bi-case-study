@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: fct_vehicle_payment_daily
+    description: '{{ doc("fct_vehicle_payment_daily") }}'
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [business_date, contract_number]
+    columns:
+      - name: business_date
+        description: '{{ doc("db_dpd_history__business_date") }}'
+        data_tests: [not_null]
+      - name: contract_number
+        description: '{{ doc("db_dpd_history__contract_number") }}'
+        data_tests: [not_null]
+      - name: previous_dpd
+        description: '{{ doc("fct_vehicle_payment_daily__previous_dpd") }}'
+      - name: dpd_change
+        description: '{{ doc("fct_vehicle_payment_daily__dpd_change") }}'
+      - name: days_since_last_payment
+        description: '{{ doc("fct_vehicle_payment_daily__days_since_last_payment") }}'
+      - name: operational_risk_level
+        description: '{{ doc("fct_vehicle_payment_daily__operational_risk_level") }}'
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [current, medium, high, critical, unknown]

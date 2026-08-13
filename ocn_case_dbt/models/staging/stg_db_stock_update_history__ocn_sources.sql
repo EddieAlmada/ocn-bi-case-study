@@ -11,7 +11,7 @@ renamed as (
         vin,
         history_id,
         step,
-        time,
+        try_cast(time as timestamp) as time,
         user_id,
         description
 

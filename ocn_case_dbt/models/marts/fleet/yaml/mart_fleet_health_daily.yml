@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: mart_fleet_health_daily
+    description: '{{ doc("mart_fleet_health_daily") }}'
+    columns:
+      - name: snapshot_date
+        description: '{{ doc("fct_vehicle_daily_snapshot__snapshot_date") }}'
+        data_tests: [not_null]
+      - name: total_vehicles
+        description: '{{ doc("mart_fleet_health_daily__total_vehicles") }}'
+      - name: assigned_vehicles
+        description: '{{ doc("mart_fleet_health_daily__assigned_vehicles") }}'
+      - name: idle_vehicles
+        description: '{{ doc("mart_fleet_health_daily__idle_vehicles") }}'
+      - name: workshop_vehicles
+        description: '{{ doc("mart_fleet_health_daily__workshop_vehicles") }}'
+      - name: withdrawn_vehicles
+        description: '{{ doc("mart_fleet_health_daily__withdrawn_vehicles") }}'
+      - name: unproductive_vehicles
+        description: '{{ doc("mart_fleet_health_daily__unproductive_vehicles") }}'
+      - name: vehicles_over_45_days_in_stock
+        description: '{{ doc("mart_fleet_health_daily__vehicles_over_45_days_in_stock") }}'
+      - name: avg_days_in_inventory
+        description: '{{ doc("mart_fleet_health_daily__avg_days_in_inventory") }}'
+      - name: median_days_in_inventory
+        description: '{{ doc("mart_fleet_health_daily__median_days_in_inventory") }}'
+      - name: unproductive_fleet_rate
+        description: '{{ doc("mart_fleet_health_daily__unproductive_fleet_rate") }}'

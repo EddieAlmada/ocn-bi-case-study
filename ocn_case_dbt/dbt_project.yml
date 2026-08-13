@@ -35,4 +35,11 @@ models:
       +materialized: view
       +database: ocn_project
       +schema: staging
-
+    intermediate:
+      +materialized: view
+      +database: ocn_project
+      +schema: intermediate
+    marts:
+      +materialized: table
+      +database: ocn_project
+      +schema: marts

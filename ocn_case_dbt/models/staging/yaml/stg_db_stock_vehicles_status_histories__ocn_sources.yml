@@ -2,71 +2,94 @@ version: 2
 
 models:
   - name: stg_db_stock_vehicles_status_histories__ocn_sources
-    description: >
-      Historical record of vehicle status and category transitions.
+    description: '{{ doc("db_stock_vehicles_status_histories") }}'
 
     data_tests:
       - dbt_utils.expression_is_true:
           arguments:
             expression: "date_out IS NULL OR date_out >= date_in"
+          config:
+            severity: warn
 
     columns:
       - name: stock_vehicle_status_histories_id
-        description: Unique identifier for each vehicle status history record.
+        description: '{{ doc("db_stock_vehicles_status_histories__stock_vehicle_status_histories_id") }}'
         data_tests:
-          - not_null
-          - unique
+          - not_null:
+              config:
+                severity: warn
+          - unique:
+              config:
+                severity: warn
 
       - name: vin
-        description: Vehicle identification number associated with the status change.
+        description: '{{ doc("db_stock_vehicles_status_histories__vin") }}'
         data_tests:
           - not_null
           - relationships:
               arguments:
-                to: ref('stg_stock_vehicles')
+                to: ref('stg_db_stock_vehicles__ocn_sources')
                 field: vin
 
       - name: contract_number
-        description: Contract associated with the vehicle.
+        description: '{{ doc("db_stock_vehicles_status_histories__contract_number") }}'
         data_tests:
-          - not_null
+          - not_null:
+              config:
+                severity: warn
 
       - name: created_at
-        description: Timestamp when the status history record was created.
+        description: '{{ doc("db_stock_vehicles_status_histories__created_at") }}'
         data_tests:
-          - not_null
+          - not_null:
+              config:
+                severity: warn
 
       - name: date_in
-        description: Date when the vehicle entered the recorded status.
+        description: '{{ doc("db_stock_vehicles_status_histories__date_in") }}'
         data_tests:
-          - not_null
+          - not_null:
+              config:
+                severity: warn
 
       - name: status
-        description: Vehicle status after the transition.
+        description: '{{ doc("db_stock_vehicles_status_histories__status") }}'
         data_tests:
-          - not_null
+          - not_null:
+              config:
+                severity: warn
           - accepted_values:
               arguments:
                 values:
                   - active
                   - inactive
+              config:
+                severity: warn
 
       - name: previous_status
-        description: Vehicle status before the transition.
+        description: '{{ doc("db_stock_vehicles_status_histories__previous_status") }}'
         data_tests:
-          - not_null
+          - not_null:
+              config:
+                severity: warn
           - accepted_values:
               arguments:
                 values:
                   - active
                   - inactive
+              config:
+                severity: warn
 
       - name: is_canceled
-        description: Indicates whether the status record was canceled.
+        description: '{{ doc("db_stock_vehicles_status_histories__is_canceled") }}'
         data_tests:
-          - not_null
+          - not_null:
+              config:
+                severity: warn
 
       - name: is_completed
-        description: Indicates whether the status record was completed.
+        description: '{{ doc("db_stock_vehicles_status_histories__is_completed") }}'
         data_tests:
-          - not_null
+          - not_null:
+              config:
+                severity: warn

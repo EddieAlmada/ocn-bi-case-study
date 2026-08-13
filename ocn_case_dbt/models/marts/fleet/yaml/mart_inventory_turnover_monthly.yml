@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: mart_inventory_turnover_monthly
+    description: '{{ doc("mart_inventory_turnover_monthly") }}'
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [month, country, state]
+    columns:
+      - name: month
+        description: '{{ doc("mart_inventory_turnover_monthly__month") }}'
+        data_tests: [not_null]
+      - name: assigned_vehicles
+        description: '{{ doc("mart_inventory_turnover_monthly__assigned_vehicles") }}'
+      - name: avg_monthly_stock
+        description: '{{ doc("mart_inventory_turnover_monthly__avg_monthly_stock") }}'
+      - name: inventory_turnover_rate
+        description: '{{ doc("mart_inventory_turnover_monthly__inventory_turnover_rate") }}'

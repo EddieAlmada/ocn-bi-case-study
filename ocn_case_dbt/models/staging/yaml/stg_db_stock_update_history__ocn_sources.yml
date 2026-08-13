@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: stg_db_stock_update_history__ocn_sources
+    description: '{{ doc("db_stock_update_history") }}'
+
+    columns:
+      - name: history_id
+        description: '{{ doc("db_stock_update_history__history_id") }}'
+        data_tests:
+          - not_null
+          - unique:
+              config:
+                severity: warn
+
+      - name: vin
+        description: '{{ doc("db_stock_update_history__vin") }}'
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_db_stock_vehicles__ocn_sources')
+                field: vin
+
+      - name: contract
+        description: '{{ doc("db_stock_update_history__contract") }}'
+        data_tests:
+          - not_null
+
+      - name: step
+        description: '{{ doc("db_stock_update_history__step") }}'
+        data_tests:
+          - not_null
+
+      - name: time
+        description: '{{ doc("db_stock_update_history__time") }}'
+        data_tests:
+          - not_null
+
+      - name: user_id
+        description: '{{ doc("db_stock_update_history__user_id") }}'
+        data_tests:
+          - not_null
