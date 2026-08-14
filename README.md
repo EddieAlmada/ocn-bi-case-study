@@ -44,5 +44,5 @@ production_intermediate
 production_marts
 ```
 
-### ERD 
+### Model Graph
 <img width="1865" height="744" alt="dbt-dag" src="https://github.com/user-attachments/assets/f0ae7ca4-48a1-48b2-8c5e-8853a284b2a2" />
