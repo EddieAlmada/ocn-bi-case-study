@@ -1,0 +1,74 @@
+version: 2
+
+models:
+  - name: mart_fleet_health_current
+    description: '{{ doc("mart_fleet_health_current") }}'
+    data_tests:
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "fleet_composition in ('active', 'idle', 'workshop', 'withdrawn')"
+    columns:
+      - name: stock_vehicles_id
+        description: '{{ doc("db_stock_vehicles__stock_vehicles_id") }}'
+        data_tests: [not_null, unique]
+      - name: vin
+        description: '{{ doc("db_stock_vehicles__vin") }}'
+        data_tests: [not_null, unique]
+      - name: contract_number
+        description: '{{ doc("db_stock_vehicles__contract_number") }}'
+      - name: brand
+        description: '{{ doc("db_stock_vehicles__brand") }}'
+      - name: model
+        description: '{{ doc("db_stock_vehicles__model") }}'
+      - name: version
+        description: '{{ doc("db_stock_vehicles__version") }}'
+      - name: year
+        description: '{{ doc("db_stock_vehicles__year") }}'
+      - name: is_electric
+        description: '{{ doc("db_stock_vehicles__is_electric") }}'
+      - name: platform
+        description: '{{ doc("db_stock_vehicles__platform") }}'
+      - name: country
+        description: '{{ doc("db_stock_vehicles__country") }}'
+      - name: state
+        description: '{{ doc("db_stock_vehicles__state") }}'
+      - name: state_name
+        description: '{{ doc("stg_db_stock_vehicles__state_name") }}'
+      - name: vehicle_state
+        description: '{{ doc("db_stock_vehicles__vehicle_state") }}'
+      - name: current_status
+        description: '{{ doc("mart_fleet_health_current__current_status") }}'
+      - name: physical_status
+        description: '{{ doc("db_stock_vehicles__physical_status") }}'
+      - name: current_standardized_category
+        description: '{{ doc("mart_fleet_health_current__current_standardized_category") }}'
+      - name: current_standardized_sub_category
+        description: '{{ doc("mart_fleet_health_current__current_standardized_sub_category") }}'
+      - name: current_driver_id
+        description: '{{ doc("mart_fleet_health_current__current_driver_id") }}'
+      - name: current_status_started_at
+        description: '{{ doc("mart_fleet_health_current__current_status_started_at") }}'
+      - name: reception_date
+        description: '{{ doc("db_stock_vehicles__reception_date") }}'
+      - name: delivered_date
+        description: '{{ doc("db_stock_vehicles__delivered_date") }}'
+      - name: created_at
+        description: '{{ doc("db_stock_vehicles__created_at") }}'
+      - name: updated_at
+        description: '{{ doc("db_stock_vehicles__updated_at") }}'
+      - name: normalized_current_status
+        description: '{{ doc("mart_fleet_health_current__normalized_current_status") }}'
+      - name: fleet_composition
+        description: '{{ doc("mart_fleet_health_current__fleet_composition") }}'
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [active, idle, workshop, withdrawn]
+      - name: days_in_inventory
+        description: '{{ doc("fct_vehicle_daily_snapshot__days_in_inventory") }}'
+      - name: days_in_current_status
+        description: '{{ doc("fct_vehicle_daily_snapshot__days_in_current_status") }}'
+      - name: dbt_updated_at
+        description: '{{ doc("mart_fleet_health_current__dbt_updated_at") }}'
+        data_tests: [not_null]
