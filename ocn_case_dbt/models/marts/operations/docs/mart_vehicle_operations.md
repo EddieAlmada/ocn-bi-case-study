@@ -3,7 +3,7 @@ Current vehicle-level operational mart for PARK inventory heatmaps, workshop tur
 {% enddocs %}
 
 {% docs mart_vehicle_operations__park_name %}
-Governed PARK-level location. It uses the standardized geographic state name, falls back to the source location code and finally to `Unknown`.
+Governed PARK-level location derived exclusively from the standardized geographic state name, falling back to `Unknown` when no mapping is available.
 {% enddocs %}
 
 {% docs mart_vehicle_operations__is_inventory_vehicle %}
@@ -23,7 +23,15 @@ Number of workshop or maintenance visits with a valid completed duration. Use th
 {% enddocs %}
 
 {% docs mart_vehicle_operations__completed_workshop_days %}
-Total duration in days across completed workshop or maintenance visits. Divide its sum by completed workshop visit count to calculate turnaround at any aggregation level.
+Total measurable duration in days across completed workshop or maintenance visits. When `date_out` is unavailable, the duration may use the next valid non-workshop transition for a completed record.
+{% enddocs %}
+
+{% docs mart_vehicle_operations__inferred_workshop_visit_count %}
+Number of measurable workshop visits whose exit timestamp was inferred from the next valid non-workshop transition because the source `date_out` was missing.
+{% enddocs %}
+
+{% docs mart_vehicle_operations__workshop_turnaround_days %}
+Vehicle-level average measurable workshop turnaround. For aggregated reporting by brand or model, divide total completed workshop days by total completed workshop visit count instead of averaging this field.
 {% enddocs %}
 
 {% docs mart_vehicle_operations__current_workshop_age_days %}

@@ -25,7 +25,6 @@ daily_stock as (
         date_trunc('month', snapshot_date) as month,
         snapshot_date,
         country,
-        state,
         state_name,
         count(*) as vehicles_in_stock
 
@@ -38,7 +37,6 @@ daily_stock as (
         date_trunc('month', snapshot_date),
         snapshot_date,
         country,
-        state,
         state_name
 
 ),
@@ -48,13 +46,12 @@ monthly_stock as (
     select
         month,
         country,
-        state,
         state_name,
         avg(vehicles_in_stock) as avg_monthly_stock
 
     from daily_stock
 
-    group by month, country, state, state_name
+    group by month, country, state_name
 
 ),
 
@@ -63,7 +60,6 @@ monthly_assignments as (
     select
         date_trunc('month', events.event_date) as month,
         vehicles.country,
-        vehicles.state,
         vehicles.state_name,
         count(distinct events.vin) as assigned_vehicles
 
@@ -77,7 +73,6 @@ monthly_assignments as (
     group by
         date_trunc('month', events.event_date),
         vehicles.country,
-        vehicles.state,
         vehicles.state_name
 
 ),
@@ -87,7 +82,6 @@ final as (
     select
         coalesce(monthly_stock.month, monthly_assignments.month) as month,
         coalesce(monthly_stock.country, monthly_assignments.country) as country,
-        coalesce(monthly_stock.state, monthly_assignments.state) as state,
         coalesce(monthly_stock.state_name, monthly_assignments.state_name) as state_name,
         coalesce(monthly_assignments.assigned_vehicles, 0) as assigned_vehicles,
         coalesce(monthly_stock.avg_monthly_stock, 0) as avg_monthly_stock,
@@ -101,7 +95,6 @@ final as (
     full outer join monthly_assignments
         on monthly_stock.month = monthly_assignments.month
         and monthly_stock.country <=> monthly_assignments.country
-        and monthly_stock.state <=> monthly_assignments.state
         and monthly_stock.state_name <=> monthly_assignments.state_name
 
 )

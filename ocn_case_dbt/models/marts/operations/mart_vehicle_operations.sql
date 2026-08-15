@@ -16,6 +16,13 @@ latest_snapshot as (
 
 ),
 
+transitions as (
+
+    select *
+    from {{ ref('fct_vehicle_status_transitions') }}
+
+),
+
 transition_metrics as (
 
     select
@@ -27,23 +34,83 @@ transition_metrics as (
                 then 1 else 0
             end
         ) as workshop_visit_count,
-        sum(
-            case
-                when standardized_category in ('workshop', 'in_maintenance')
-                 and days_in_status is not null
-                then 1 else 0
-            end
-        ) as completed_workshop_visit_count,
-        sum(
-            case
-                when standardized_category in ('workshop', 'in_maintenance')
-                then days_in_status else 0
-            end
-        ) as completed_workshop_days,
         max(created_at) as last_transition_at,
         max_by(status_transition, created_at) as last_status_transition
 
-    from {{ ref('fct_vehicle_status_transitions') }}
+    from transitions
+
+    group by vin
+
+),
+
+valid_transitions as (
+
+    select *
+    from transitions
+    where date_in is not null
+      and year(date_in) between 2000 and year(current_date()) + 1
+
+),
+
+workshop_visits as (
+
+    select
+        workshop.vehicle_status_transition_id,
+        workshop.vin,
+        workshop.date_in as workshop_started_at,
+        case
+            when workshop.date_out > workshop.date_in
+             and year(workshop.date_out) between 2000 and year(current_date()) + 1
+                then workshop.date_out
+            when workshop.is_completed
+                then min(next_status.date_in)
+        end as resolved_workshop_ended_at,
+        case
+            when workshop.date_out > workshop.date_in
+             and year(workshop.date_out) between 2000 and year(current_date()) + 1
+                then 'date_out'
+            when workshop.is_completed
+             and min(next_status.date_in) is not null
+                then 'next_non_workshop_transition'
+            else 'missing'
+        end as workshop_exit_source
+
+    from valid_transitions as workshop
+
+    left join valid_transitions as next_status
+        on workshop.vin = next_status.vin
+        and next_status.date_in > workshop.date_in
+        and coalesce(next_status.standardized_category, 'unknown')
+            not in ('workshop', 'in_maintenance')
+
+    where workshop.standardized_category in ('workshop', 'in_maintenance')
+
+    group by
+        workshop.vehicle_status_transition_id,
+        workshop.vin,
+        workshop.date_in,
+        workshop.date_out,
+        workshop.is_completed
+
+),
+
+workshop_metrics as (
+
+    select
+        vin,
+        count_if(resolved_workshop_ended_at is not null) as completed_workshop_visit_count,
+        sum(
+            case
+                when resolved_workshop_ended_at is not null
+                then datediff(day, workshop_started_at, resolved_workshop_ended_at)
+                else 0
+            end
+        ) as completed_workshop_days,
+        count_if(
+            workshop_exit_source = 'next_non_workshop_transition'
+        ) as inferred_workshop_visit_count
+
+    from workshop_visits
 
     group by vin
 
@@ -58,8 +125,7 @@ final as (
         vehicles.brand,
         vehicles.model,
         vehicles.country,
-        coalesce(vehicles.state_name, vehicles.state, 'Unknown') as park_name,
-        vehicles.vehicle_state,
+        coalesce(vehicles.state_name, 'Unknown') as park_name,
         latest_snapshot.status,
         latest_snapshot.standardized_category,
         latest_snapshot.standardized_sub_category,
@@ -81,8 +147,13 @@ final as (
         vehicles.delivery_assignment_day_difference,
         coalesce(transition_metrics.transition_count, 0) as transition_count,
         coalesce(transition_metrics.workshop_visit_count, 0) as workshop_visit_count,
-        coalesce(transition_metrics.completed_workshop_visit_count, 0) as completed_workshop_visit_count,
-        coalesce(transition_metrics.completed_workshop_days, 0) as completed_workshop_days,
+        coalesce(workshop_metrics.completed_workshop_visit_count, 0) as completed_workshop_visit_count,
+        coalesce(workshop_metrics.completed_workshop_days, 0) as completed_workshop_days,
+        coalesce(workshop_metrics.inferred_workshop_visit_count, 0) as inferred_workshop_visit_count,
+        try_divide(
+            workshop_metrics.completed_workshop_days,
+            workshop_metrics.completed_workshop_visit_count
+        ) as workshop_turnaround_days,
         case
             when latest_snapshot.is_workshop
             then latest_snapshot.days_in_current_status
@@ -102,6 +173,9 @@ final as (
 
     left join transition_metrics
         on vehicles.vin = transition_metrics.vin
+
+    left join workshop_metrics
+        on vehicles.vin = workshop_metrics.vin
 
 )
 

@@ -1,5 +1,5 @@
 {% docs stg_db_stock_vehicles__state_name %}
-Standardized Mexican state name derived from the source geographic `state` code. Unrecognized or missing codes remain null while the original source code is preserved.
+Standardized Mexican state name derived from the source `vehicle_state` PARK or hub code. Unrecognized or missing codes remain null while the original source code is preserved in staging only.
 {% enddocs %}
 
 {% docs stg_db_stock_vehicles__standardized_category %}

@@ -12,6 +12,9 @@ models:
       - dbt_utils.expression_is_true:
           arguments:
             expression: "completed_workshop_days >= 0"
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "inferred_workshop_visit_count <= completed_workshop_visit_count"
     columns:
       - name: vin
         description: '{{ doc("db_stock_vehicles__vin") }}'
@@ -33,6 +36,10 @@ models:
         description: '{{ doc("mart_vehicle_operations__completed_workshop_visit_count") }}'
       - name: completed_workshop_days
         description: '{{ doc("mart_vehicle_operations__completed_workshop_days") }}'
+      - name: inferred_workshop_visit_count
+        description: '{{ doc("mart_vehicle_operations__inferred_workshop_visit_count") }}'
+      - name: workshop_turnaround_days
+        description: '{{ doc("mart_vehicle_operations__workshop_turnaround_days") }}'
       - name: current_workshop_age_days
         description: '{{ doc("mart_vehicle_operations__current_workshop_age_days") }}'
       - name: last_transition_at

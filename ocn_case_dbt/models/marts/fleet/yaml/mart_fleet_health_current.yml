@@ -30,12 +30,8 @@ models:
         description: '{{ doc("db_stock_vehicles__platform") }}'
       - name: country
         description: '{{ doc("db_stock_vehicles__country") }}'
-      - name: state
-        description: '{{ doc("db_stock_vehicles__state") }}'
       - name: state_name
         description: '{{ doc("stg_db_stock_vehicles__state_name") }}'
-      - name: vehicle_state
-        description: '{{ doc("db_stock_vehicles__vehicle_state") }}'
       - name: current_status
         description: '{{ doc("mart_fleet_health_current__current_status") }}'
       - name: physical_status
