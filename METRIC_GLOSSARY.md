@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document is the governed reference for metrics used in dbt marts, Databricks dashboards, Genie, and Tableau. It defines business meaning, formulas, required filters, aggregation rules, assumptions, and known limitations.
+This document is the governed reference for metrics used in dbt marts, Databricks dashboards, Genie, and Dashboards. It defines business meaning, formulas, required filters, aggregation rules, assumptions, and known limitations.
 
 Metric definitions must not be reimplemented differently in a dashboard. Proposed changes should update this document and the corresponding dbt model documentation in the same pull request.
 
@@ -352,5 +352,5 @@ For every metric change:
 3. Update the dbt model and its `doc()` documentation.
 4. Add or update data tests for uniqueness, accepted values, valid ranges, and denominator behavior.
 5. Rebuild affected models and validate historical and current outputs.
-6. Update Databricks, Genie, and Tableau calculations to use the governed definition.
+6. Update Databricks, Genie, and Dashboards calculations to use the governed definition.
 
