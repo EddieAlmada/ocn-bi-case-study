@@ -10,6 +10,10 @@ Calendar date represented by the snapshot row.
 Lowercase, underscore-separated effective status on the snapshot date.
 {% enddocs %}
 
+{% docs fct_vehicle_daily_snapshot__fleet_composition %}
+Mutually exclusive fleet classification as of the snapshot date using the governed Fleet Health precedence: withdrawn, workshop, active and then idle.
+{% enddocs %}
+
 {% docs fct_vehicle_daily_snapshot__days_in_inventory %}
 Whole days elapsed from reception or creation to the snapshot date.
 {% enddocs %}

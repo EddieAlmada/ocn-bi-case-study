@@ -132,43 +132,33 @@ classified as (
 
 ),
 
+with_composition as (
+
+    select
+        *,
+        {{ classify_fleet_composition(
+            'normalized_status',
+            'standardized_category',
+            'standardized_sub_category'
+        ) }} as fleet_composition
+
+    from classified
+
+),
+
 final as (
 
     select
         *,
-        case
-            when normalized_status like '%idle%'
-              or standardized_category like '%idle%'
-              or standardized_sub_category like '%idle%'
-            then true else false
-        end as is_idle,
-        case
-            when normalized_status like '%workshop%'
-              or standardized_category like '%workshop%'
-              or standardized_sub_category like '%workshop%'
-              or normalized_status like '%taller%'
-              or standardized_category like '%taller%'
-              or standardized_sub_category like '%taller%'
-            then true else false
-        end as is_workshop,
-        case
-            when normalized_status like '%withdrawn%'
-              or standardized_category like '%withdrawn%'
-              or normalized_status like '%baja%'
-              or standardized_category like '%baja%'
-            then true else false
-        end as is_withdrawn,
-        case
-            when associate_id is not null
-              or normalized_status like '%assigned%'
-              or normalized_status like '%asignado%'
-            then true else false
-        end as is_assigned,
+        fleet_composition = 'idle' as is_idle,
+        fleet_composition = 'workshop' as is_workshop,
+        fleet_composition = 'withdrawn' as is_withdrawn,
+        fleet_composition = 'active' as is_assigned,
         case
             when days_in_inventory > 45 then true else false
         end as is_over_45_days_in_stock
 
-    from classified
+    from with_composition
 
 )
 

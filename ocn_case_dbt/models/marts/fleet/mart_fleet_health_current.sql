@@ -85,27 +85,11 @@ classified as (
 
     select
         *,
-        case
-            when normalized_current_status like '%withdrawn%'
-              or normalized_current_status like '%baja%'
-              or current_standardized_category = 'withdrawn'
-              or current_standardized_sub_category = 'withdrawn'
-                then 'withdrawn'
-
-            when normalized_current_status like '%workshop%'
-              or normalized_current_status like '%taller%'
-              or normalized_current_status like '%maintenance%'
-              or current_standardized_category in ('workshop', 'in_maintenance')
-              or current_standardized_sub_category in ('workshop', 'in_maintenance')
-                then 'workshop'
-
-            when current_driver_id is not null
-              or normalized_current_status like '%assigned%'
-              or normalized_current_status like '%asignado%'
-                then 'active'
-
-            else 'idle'
-        end as fleet_composition,
+        {{ classify_fleet_composition(
+            'normalized_current_status',
+            'current_standardized_category',
+            'current_standardized_sub_category'
+        ) }} as fleet_composition,
         datediff(
             day,
             cast(coalesce(reception_date, created_at) as date),

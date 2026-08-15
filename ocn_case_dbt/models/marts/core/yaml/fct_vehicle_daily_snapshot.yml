@@ -22,6 +22,13 @@ models:
         description: '{{ doc("stg_db_stock_vehicles__standardized_sub_category") }}'
       - name: normalized_status
         description: '{{ doc("fct_vehicle_daily_snapshot__normalized_status") }}'
+      - name: fleet_composition
+        description: '{{ doc("fct_vehicle_daily_snapshot__fleet_composition") }}'
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [active, idle, workshop, withdrawn]
       - name: days_in_inventory
         description: '{{ doc("fct_vehicle_daily_snapshot__days_in_inventory") }}'
       - name: days_in_current_status

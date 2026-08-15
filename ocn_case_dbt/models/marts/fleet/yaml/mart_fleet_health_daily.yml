@@ -9,6 +9,8 @@ models:
         data_tests: [not_null]
       - name: state_name
         description: '{{ doc("stg_db_stock_vehicles__state_name") }}'
+      - name: fleet_composition
+        description: '{{ doc("fct_vehicle_daily_snapshot__fleet_composition") }}'
       - name: standardized_category
         description: '{{ doc("stg_db_stock_vehicles__standardized_category") }}'
       - name: standardized_sub_category
