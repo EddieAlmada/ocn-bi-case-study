@@ -11,7 +11,7 @@ Normalized label combining previous and resulting status in `previous_to_current
 {% enddocs %}
 
 {% docs fct_vehicle_status_transitions__category_transition %}
-Normalized label combining previous and resulting category in `previous_to_current` format.
+Label combining the standardized previous and resulting category in `previous_to_current` format.
 {% enddocs %}
 
 {% docs fct_vehicle_status_transitions__is_open_transition %}

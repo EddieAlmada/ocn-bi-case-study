@@ -29,3 +29,19 @@ Boolean indicating whether the previous and resulting status are distinct, inclu
 {% docs int_vehicle_status_transitions__is_category_change %}
 Boolean indicating whether the previous and resulting category are distinct, including null-safe comparison.
 {% enddocs %}
+
+{% docs int_vehicle_status_transitions__standardized_category %}
+Standardized resulting category inherited from staging for consistent transition analysis.
+{% enddocs %}
+
+{% docs int_vehicle_status_transitions__standardized_sub_category %}
+Standardized resulting sub-category inherited from staging for consistent transition analysis.
+{% enddocs %}
+
+{% docs int_vehicle_status_transitions__standardized_previous_category %}
+Standardized category preceding the transition.
+{% enddocs %}
+
+{% docs int_vehicle_status_transitions__standardized_previous_sub_category %}
+Standardized sub-category preceding the transition.
+{% enddocs %}

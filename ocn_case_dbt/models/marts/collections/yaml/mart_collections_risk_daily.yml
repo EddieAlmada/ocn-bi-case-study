@@ -7,14 +7,53 @@ models:
       - dbt_utils.unique_combination_of_columns:
           arguments:
             combination_of_columns: [business_date, contract_number]
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "default_risk_score between 0 and 100"
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "status_transition_count >= 0"
     columns:
       - name: business_date
         description: '{{ doc("db_dpd_history__business_date") }}'
         data_tests: [not_null]
+      - name: is_latest_business_date
+        description: '{{ doc("mart_collections_risk_daily__is_latest_business_date") }}'
+      - name: is_vehicle_date_correlation_record
+        description: '{{ doc("mart_collections_risk_daily__is_vehicle_date_correlation_record") }}'
       - name: contract_number
         description: '{{ doc("db_dpd_history__contract_number") }}'
         data_tests: [not_null]
+      - name: state_name
+        description: '{{ doc("stg_db_stock_vehicles__state_name") }}'
+      - name: standardized_category
+        description: '{{ doc("stg_db_stock_vehicles__standardized_category") }}'
+      - name: standardized_sub_category
+        description: '{{ doc("stg_db_stock_vehicles__standardized_sub_category") }}'
+      - name: days_in_inventory
+        description: '{{ doc("fct_vehicle_daily_snapshot__days_in_inventory") }}'
+      - name: days_in_current_status
+        description: '{{ doc("fct_vehicle_daily_snapshot__days_in_current_status") }}'
+      - name: status_transition_count
+        description: '{{ doc("mart_collections_risk_daily__status_transition_count") }}'
+      - name: latest_status_started_at
+        description: '{{ doc("mart_collections_risk_daily__latest_status_started_at") }}'
+      - name: latest_status_ended_at
+        description: '{{ doc("mart_collections_risk_daily__latest_status_ended_at") }}'
+      - name: is_prolonged_status
+        description: '{{ doc("mart_collections_risk_daily__is_prolonged_status") }}'
+      - name: is_unresolved_status
+        description: '{{ doc("mart_collections_risk_daily__is_unresolved_status") }}'
+      - name: default_risk_score
+        description: '{{ doc("mart_collections_risk_daily__default_risk_score") }}'
+        data_tests: [not_null]
+      - name: default_risk_band
+        description: '{{ doc("mart_collections_risk_daily__default_risk_band") }}'
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [low, medium, high, critical]
       - name: is_early_warning
         description: '{{ doc("mart_collections_risk_daily__is_early_warning") }}'
-      - name: risk_reason
-        description: '{{ doc("mart_collections_risk_daily__risk_reason") }}'
+      - name: early_warning_reason
+        description: '{{ doc("mart_collections_risk_daily__early_warning_reason") }}'

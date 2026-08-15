@@ -19,6 +19,7 @@ renamed as (
         can_finish_process,
         car_number,
         category,
+        {{ standardize_operational_label('category') }} as standardized_category,
         color,
         contract,
         country,
@@ -47,9 +48,28 @@ renamed as (
         ready_to_deliver,
         try_cast(reception_date as timestamp) as reception_date,
         state,
+        case lower(trim(state))
+            when 'ags' then 'Aguascalientes'
+            when 'cdmx' then 'Distrito Federal'
+            when 'chi' then 'Chihuahua'
+            when 'gdl' then 'Jalisco'
+            when 'her' then 'Sonora'
+            when 'leo' then 'Guanajuato'
+            when 'mer' then 'Yucatán'
+            when 'mty' then 'Nuevo León'
+            when 'mxli' then 'Baja California'
+            when 'pbe' then 'Puebla'
+            when 'ptv' then 'Jalisco'
+            when 'qro' then 'Querétaro'
+            when 'sal' then 'Coahuila de Zaragoza'
+            when 'slp' then 'San Luis Potosí'
+            when 'tij' then 'Baja California'
+            when 'torr' then 'Coahuila de Zaragoza'
+        end as state_name,
         status,
         step,
         sub_category,
+        {{ standardize_operational_label('sub_category') }} as standardized_sub_category,
         transferred_to,
         try_cast(updated_at as timestamp) as updated_at,
         vehicle_docs_complete,

@@ -6,11 +6,13 @@ models:
     data_tests:
       - dbt_utils.unique_combination_of_columns:
           arguments:
-            combination_of_columns: [month, country, state]
+            combination_of_columns: [month, country, state, state_name]
     columns:
       - name: month
         description: '{{ doc("mart_inventory_turnover_monthly__month") }}'
         data_tests: [not_null]
+      - name: state_name
+        description: '{{ doc("stg_db_stock_vehicles__state_name") }}'
       - name: assigned_vehicles
         description: '{{ doc("mart_inventory_turnover_monthly__assigned_vehicles") }}'
       - name: avg_monthly_stock

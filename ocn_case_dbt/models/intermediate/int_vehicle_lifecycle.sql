@@ -110,6 +110,36 @@ vehicle_lifecycle as (
         event_dates.first_service_at,
         event_dates.first_returned_to_stock_at,
 
+        coalesce(
+            event_dates.first_driver_assigned_at,
+            vehicles.delivered_date
+        ) as resolved_driver_assignment_at,
+
+        case
+            when event_dates.first_driver_assigned_at is not null then 'driver_assigned_event'
+            when vehicles.delivered_date is not null then 'delivered_date_fallback'
+            else 'missing'
+        end as driver_assignment_timestamp_source,
+
+        case
+            when vehicles.delivered_date is not null
+             and event_dates.first_driver_assigned_at is not null
+             and cast(vehicles.delivered_date as date)
+                 <> cast(event_dates.first_driver_assigned_at as date)
+            then true
+            else false
+        end as has_delivery_assignment_timestamp_conflict,
+
+        case
+            when vehicles.delivered_date is not null
+             and event_dates.first_driver_assigned_at is not null
+            then datediff(
+                day,
+                vehicles.delivered_date,
+                event_dates.first_driver_assigned_at
+            )
+        end as delivery_assignment_day_difference,
+
         case
             when vehicles.reception_date is not null
              and event_dates.first_vehicle_ready_at is not null
@@ -122,21 +152,33 @@ vehicle_lifecycle as (
 
         case
             when vehicles.reception_date is not null
-             and event_dates.first_driver_assigned_at is not null
+             and coalesce(
+                 event_dates.first_driver_assigned_at,
+                 vehicles.delivered_date
+             ) is not null
             then datediff(
                 day,
                 vehicles.reception_date,
-                event_dates.first_driver_assigned_at
+                coalesce(
+                    event_dates.first_driver_assigned_at,
+                    vehicles.delivered_date
+                )
             )
         end as days_reception_to_driver_assignment,
 
         case
             when event_dates.first_gps_installed_at is not null
-             and event_dates.first_driver_assigned_at is not null
+             and coalesce(
+                 event_dates.first_driver_assigned_at,
+                 vehicles.delivered_date
+             ) is not null
             then datediff(
                 day,
                 event_dates.first_gps_installed_at,
-                event_dates.first_driver_assigned_at
+                coalesce(
+                    event_dates.first_driver_assigned_at,
+                    vehicles.delivered_date
+                )
             )
         end as days_gps_to_driver_assignment
 

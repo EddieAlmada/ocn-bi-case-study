@@ -93,3 +93,15 @@ models:
           - not_null:
               config:
                 severity: warn
+
+      - name: standardized_category
+        description: '{{ doc("stg_db_stock_vehicles_status_histories__standardized_category") }}'
+
+      - name: standardized_sub_category
+        description: '{{ doc("stg_db_stock_vehicles_status_histories__standardized_sub_category") }}'
+
+      - name: standardized_previous_category
+        description: '{{ doc("stg_db_stock_vehicles_status_histories__standardized_previous_category") }}'
+
+      - name: standardized_previous_sub_category
+        description: '{{ doc("stg_db_stock_vehicles_status_histories__standardized_previous_sub_category") }}'

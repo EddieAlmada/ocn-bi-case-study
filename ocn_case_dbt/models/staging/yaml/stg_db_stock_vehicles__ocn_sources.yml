@@ -50,6 +50,34 @@ models:
         data_tests:
           - not_null
 
+      - name: state_name
+        description: '{{ doc("stg_db_stock_vehicles__state_name") }}'
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - Aguascalientes
+                  - Distrito Federal
+                  - Chihuahua
+                  - Jalisco
+                  - Sonora
+                  - Guanajuato
+                  - Yucatán
+                  - Nuevo León
+                  - Baja California
+                  - Puebla
+                  - Querétaro
+                  - Coahuila de Zaragoza
+                  - San Luis Potosí
+              config:
+                severity: warn
+
+      - name: standardized_category
+        description: '{{ doc("stg_db_stock_vehicles__standardized_category") }}'
+
+      - name: standardized_sub_category
+        description: '{{ doc("stg_db_stock_vehicles__standardized_sub_category") }}'
+
       - name: brand
         description: '{{ doc("db_stock_vehicles__brand") }}'
         data_tests:

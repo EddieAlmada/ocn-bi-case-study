@@ -7,6 +7,12 @@ models:
       - name: snapshot_date
         description: '{{ doc("fct_vehicle_daily_snapshot__snapshot_date") }}'
         data_tests: [not_null]
+      - name: state_name
+        description: '{{ doc("stg_db_stock_vehicles__state_name") }}'
+      - name: standardized_category
+        description: '{{ doc("stg_db_stock_vehicles__standardized_category") }}'
+      - name: standardized_sub_category
+        description: '{{ doc("stg_db_stock_vehicles__standardized_sub_category") }}'
       - name: total_vehicles
         description: '{{ doc("mart_fleet_health_daily__total_vehicles") }}'
       - name: assigned_vehicles

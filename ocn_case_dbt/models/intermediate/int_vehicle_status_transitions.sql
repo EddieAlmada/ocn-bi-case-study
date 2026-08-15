@@ -32,11 +32,11 @@ valid_status_records as (
         previous_status,
         status,
 
-        previous_category,
-        category,
+        standardized_previous_category,
+        standardized_category,
 
-        previous_sub_category,
-        sub_category,
+        standardized_previous_sub_category,
+        standardized_sub_category,
 
         previous_step,
         step,
@@ -55,8 +55,8 @@ valid_status_records as (
 
     where status is not null
        or previous_status is not null
-       or category is not null
-       or previous_category is not null
+       or standardized_category is not null
+       or standardized_previous_category is not null
 
 ),
 
@@ -101,7 +101,7 @@ status_transitions as (
         end as is_status_change,
 
         case
-            when previous_category is distinct from category
+            when standardized_previous_category is distinct from standardized_category
             then true
             else false
         end as is_category_change

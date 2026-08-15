@@ -36,3 +36,21 @@ models:
         description: '{{ doc("int_vehicle_lifecycle__days_reception_to_driver_assignment") }}'
       - name: days_gps_to_driver_assignment
         description: '{{ doc("int_vehicle_lifecycle__days_gps_to_driver_assignment") }}'
+      - name: resolved_driver_assignment_at
+        description: '{{ doc("int_vehicle_lifecycle__resolved_driver_assignment_at") }}'
+      - name: driver_assignment_timestamp_source
+        description: '{{ doc("int_vehicle_lifecycle__driver_assignment_timestamp_source") }}'
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [driver_assigned_event, delivered_date_fallback, missing]
+      - name: has_delivery_assignment_timestamp_conflict
+        description: '{{ doc("int_vehicle_lifecycle__has_delivery_assignment_timestamp_conflict") }}'
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [false]
+              config:
+                severity: warn
+      - name: delivery_assignment_day_difference
+        description: '{{ doc("int_vehicle_lifecycle__delivery_assignment_day_difference") }}'

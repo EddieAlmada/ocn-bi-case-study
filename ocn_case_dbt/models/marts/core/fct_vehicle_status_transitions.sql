@@ -16,9 +16,9 @@ final as (
             coalesce(regexp_replace(lower(trim(status)), '[^a-z0-9]+', '_'), 'unknown')
         ) as status_transition,
         concat(
-            coalesce(regexp_replace(lower(trim(previous_category)), '[^a-z0-9]+', '_'), 'unknown'),
+            coalesce(standardized_previous_category, 'unknown'),
             '_to_',
-            coalesce(regexp_replace(lower(trim(category)), '[^a-z0-9]+', '_'), 'unknown')
+            coalesce(standardized_category, 'unknown')
         ) as category_transition,
         case
             when date_out is null then true
