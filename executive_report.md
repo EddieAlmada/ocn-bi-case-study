@@ -395,15 +395,3 @@ Understanding the relationship between operational instability and collections r
 | **Early Warning Vehicles** | 3,334 | &lt;1,000 | 70% reduction in at-risk assets |
 
 ---
-
-## Financial Impact Estimate
-
-Based on typical vehicle economics, these improvements could generate:
-
-- **$XX million** in incremental annual revenue
-- **$Y million** in cost avoidance
-- **$Z million** in risk mitigation
-- **$W million** in combined EBITDA improvement
-- **XX%** potential margin expansion
-
----
