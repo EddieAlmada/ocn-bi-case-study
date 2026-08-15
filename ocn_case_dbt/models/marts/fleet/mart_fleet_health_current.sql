@@ -51,9 +51,7 @@ current_vehicle_state as (
         vehicles.is_electric,
         vehicles.platform,
         vehicles.country,
-        vehicles.state,
         vehicles.state_name,
-        vehicles.vehicle_state,
         coalesce(latest_status.status, vehicles.status) as current_status,
         vehicles.physical_status,
         coalesce(

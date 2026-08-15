@@ -48,7 +48,7 @@ renamed as (
         ready_to_deliver,
         try_cast(reception_date as timestamp) as reception_date,
         state,
-        case lower(trim(state))
+        case lower(trim(vehicle_state))
             when 'ags' then 'Aguascalientes'
             when 'cdmx' then 'Distrito Federal'
             when 'chi' then 'Chihuahua'

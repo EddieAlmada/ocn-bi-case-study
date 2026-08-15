@@ -93,8 +93,6 @@ vehicle_lifecycle as (
         vehicles.physical_status,
         vehicles.category,
         vehicles.sub_category,
-        vehicles.vehicle_state,
-
         vehicles.created_at,
         vehicles.updated_at,
         vehicles.reception_date,

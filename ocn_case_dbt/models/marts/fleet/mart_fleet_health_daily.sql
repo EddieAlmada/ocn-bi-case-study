@@ -10,9 +10,7 @@ final as (
     select
         snapshot_date,
         country,
-        state,
         state_name,
-        vehicle_state,
         status,
         standardized_category,
         standardized_sub_category,
@@ -34,9 +32,7 @@ final as (
     group by
         snapshot_date,
         country,
-        state,
         state_name,
-        vehicle_state,
         status,
         standardized_category,
         standardized_sub_category,
