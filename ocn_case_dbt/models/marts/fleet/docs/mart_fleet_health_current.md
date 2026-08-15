@@ -27,7 +27,7 @@ Lowercase, underscore-separated representation of the latest available status.
 {% enddocs %}
 
 {% docs mart_fleet_health_current__fleet_composition %}
-Mutually exclusive current fleet classification. Precedence is withdrawn, workshop, active and then idle. Active requires a current driver or an assignment status; vehicles that match no higher-priority rule default to idle.
+Mutually exclusive current fleet classification. Precedence is withdrawn, workshop, active and then idle. Active requires a current `active` or `assigned` status or standardized assignment category; historical driver identifiers are not treated as evidence of current assignment. Vehicles that match no higher-priority rule default to idle.
 {% enddocs %}
 
 {% docs mart_fleet_health_current__dbt_updated_at %}
