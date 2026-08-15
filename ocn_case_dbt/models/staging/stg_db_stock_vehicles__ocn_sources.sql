@@ -50,7 +50,7 @@ renamed as (
         state,
         case lower(trim(vehicle_state))
             when 'ags' then 'Aguascalientes'
-            when 'cdmx' then 'Ciudad de Mexico'
+            when 'cdmx' then 'Mexico City'
             when 'chi' then 'Chihuahua'
             when 'gdl' then 'Jalisco'
             when 'her' then 'Sonora'
