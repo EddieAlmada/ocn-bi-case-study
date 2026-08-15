@@ -10,14 +10,6 @@ Calendar date represented by the snapshot row.
 Lowercase, underscore-separated effective status on the snapshot date.
 {% enddocs %}
 
-{% docs fct_vehicle_daily_snapshot__normalized_category %}
-Lowercase, underscore-separated effective category on the snapshot date.
-{% enddocs %}
-
-{% docs fct_vehicle_daily_snapshot__normalized_sub_category %}
-Lowercase, underscore-separated effective sub-category on the snapshot date.
-{% enddocs %}
-
 {% docs fct_vehicle_daily_snapshot__days_in_inventory %}
 Whole days elapsed from reception or creation to the snapshot date.
 {% enddocs %}

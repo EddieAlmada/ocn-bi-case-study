@@ -28,11 +28,12 @@ final as (
         vehicles.platform,
         vehicles.country,
         vehicles.state,
+        vehicles.state_name,
         vehicles.vehicle_state,
         vehicles.status,
         vehicles.physical_status,
-        vehicles.category,
-        vehicles.sub_category,
+        vehicles.standardized_category,
+        vehicles.standardized_sub_category,
         vehicles.step,
         vehicles.owner,
         vehicles.last_driver_id,
@@ -53,12 +54,14 @@ final as (
         lifecycle.first_workshop_at,
         lifecycle.first_service_at,
         lifecycle.first_returned_to_stock_at,
+        lifecycle.resolved_driver_assignment_at,
+        lifecycle.driver_assignment_timestamp_source,
+        lifecycle.has_delivery_assignment_timestamp_conflict,
+        lifecycle.delivery_assignment_day_difference,
         lifecycle.days_reception_to_ready,
         lifecycle.days_reception_to_driver_assignment,
         lifecycle.days_gps_to_driver_assignment,
-        regexp_replace(lower(trim(vehicles.status)), '[^a-z0-9]+', '_') as normalized_status,
-        regexp_replace(lower(trim(vehicles.category)), '[^a-z0-9]+', '_') as normalized_category,
-        regexp_replace(lower(trim(vehicles.sub_category)), '[^a-z0-9]+', '_') as normalized_sub_category
+        regexp_replace(lower(trim(vehicles.status)), '[^a-z0-9]+', '_') as normalized_status
 
     from vehicles
 

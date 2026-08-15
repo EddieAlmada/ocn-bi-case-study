@@ -37,6 +37,14 @@ models:
                 values: [false]
               config:
                 severity: warn
+      - name: standardized_category
+        description: '{{ doc("int_vehicle_status_transitions__standardized_category") }}'
+      - name: standardized_sub_category
+        description: '{{ doc("int_vehicle_status_transitions__standardized_sub_category") }}'
+      - name: standardized_previous_category
+        description: '{{ doc("int_vehicle_status_transitions__standardized_previous_category") }}'
+      - name: standardized_previous_sub_category
+        description: '{{ doc("int_vehicle_status_transitions__standardized_previous_sub_category") }}'
       - name: is_status_change
         description: '{{ doc("int_vehicle_status_transitions__is_status_change") }}'
       - name: is_category_change

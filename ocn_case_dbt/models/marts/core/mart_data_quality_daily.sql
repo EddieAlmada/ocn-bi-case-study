@@ -87,6 +87,17 @@ quality_metrics as (
     from {{ ref('int_vehicle_events') }}
     where event_type = 'other'
 
+    union all
+
+    select
+        current_date(),
+        'intermediate',
+        'warning',
+        'delivery_assignment_timestamp_conflicts',
+        count(*)
+    from {{ ref('int_vehicle_lifecycle') }}
+    where has_delivery_assignment_timestamp_conflict
+
 ),
 
 final as (

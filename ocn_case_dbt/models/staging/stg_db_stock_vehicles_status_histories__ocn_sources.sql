@@ -14,6 +14,7 @@ renamed as (
         associate_id,
         try_cast(canceled_at as timestamp) as canceled_at,
         category,
+        {{ standardize_operational_label('category') }} as standardized_category,
         commments,
         try_cast(created_at as timestamp) as created_at,
         try_cast(date_in as timestamp) as date_in,
@@ -21,13 +22,16 @@ renamed as (
         is_canceled,
         is_completed,
         previous_category,
+        {{ standardize_operational_label('previous_category') }} as standardized_previous_category,
         previous_status,
         previous_step,
         previous_sub_category,
+        {{ standardize_operational_label('previous_sub_category') }} as standardized_previous_sub_category,
         status,
         step,
         stockid,
         sub_category,
+        {{ standardize_operational_label('sub_category') }} as standardized_sub_category,
         userid
 
     from source

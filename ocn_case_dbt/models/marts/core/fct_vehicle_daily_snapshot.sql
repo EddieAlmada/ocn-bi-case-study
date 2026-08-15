@@ -57,8 +57,8 @@ status_as_of_date as (
         vehicle_dates.snapshot_date,
         vehicle_dates.vin,
         status_history.status as historical_status,
-        status_history.category as historical_category,
-        status_history.sub_category as historical_sub_category,
+        status_history.standardized_category as historical_standardized_category,
+        status_history.standardized_sub_category as historical_standardized_sub_category,
         status_history.associate_id,
         status_history.date_in as status_date_in,
         row_number() over (
@@ -91,11 +91,12 @@ enriched as (
         vehicle_dates.platform,
         vehicle_dates.country,
         vehicle_dates.state,
+        vehicle_dates.state_name,
         vehicle_dates.vehicle_state,
         coalesce(status_as_of_date.historical_status, vehicle_dates.status) as status,
         vehicle_dates.physical_status,
-        coalesce(status_as_of_date.historical_category, vehicle_dates.category) as category,
-        coalesce(status_as_of_date.historical_sub_category, vehicle_dates.sub_category) as sub_category,
+        coalesce(status_as_of_date.historical_standardized_category, vehicle_dates.standardized_category) as standardized_category,
+        coalesce(status_as_of_date.historical_standardized_sub_category, vehicle_dates.standardized_sub_category) as standardized_sub_category,
         status_as_of_date.associate_id,
         vehicle_dates.reception_date,
         vehicle_dates.delivered_date,
@@ -126,8 +127,6 @@ classified as (
     select
         *,
         regexp_replace(lower(trim(status)), '[^a-z0-9]+', '_') as normalized_status,
-        regexp_replace(lower(trim(category)), '[^a-z0-9]+', '_') as normalized_category,
-        regexp_replace(lower(trim(sub_category)), '[^a-z0-9]+', '_') as normalized_sub_category,
         datediff(day, cast(reception_date as date), snapshot_date) as days_in_inventory,
         datediff(day, cast(status_date_in as date), snapshot_date) as days_in_current_status
 
@@ -141,24 +140,24 @@ final as (
         *,
         case
             when normalized_status like '%idle%'
-              or normalized_category like '%idle%'
-              or normalized_sub_category like '%idle%'
+              or standardized_category like '%idle%'
+              or standardized_sub_category like '%idle%'
             then true else false
         end as is_idle,
         case
             when normalized_status like '%workshop%'
-              or normalized_category like '%workshop%'
-              or normalized_sub_category like '%workshop%'
+              or standardized_category like '%workshop%'
+              or standardized_sub_category like '%workshop%'
               or normalized_status like '%taller%'
-              or normalized_category like '%taller%'
-              or normalized_sub_category like '%taller%'
+              or standardized_category like '%taller%'
+              or standardized_sub_category like '%taller%'
             then true else false
         end as is_workshop,
         case
             when normalized_status like '%withdrawn%'
-              or normalized_category like '%withdrawn%'
+              or standardized_category like '%withdrawn%'
               or normalized_status like '%baja%'
-              or normalized_category like '%baja%'
+              or standardized_category like '%baja%'
             then true else false
         end as is_withdrawn,
         case
